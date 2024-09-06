@@ -1,0 +1,29 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: API-GATEWAY
+
+  cloud:
+    gateway:
+      routes:
+        - id: PATIENTS
+          uri: lb://PATIENTS
+          predicates:
+            - Path=/api/patients/**
+
+        - id: BILLINGS
+          uri: lb://BILLINGS
+          predicates:
+            - Path=/api/billings/**
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    registry-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
